@@ -1,0 +1,12 @@
+input: .
+output: .retype
+url: # Add your website address here
+branding:
+  title: System Design
+  label: TLDR
+links:
+  - text: Github
+    link: https://github.com/zsoro2/system-design
+    icon: mark-github
+footer:
+  copyright: "&copy; Copyright {{ year }}. All rights reserved."
