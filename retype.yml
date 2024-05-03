@@ -1,6 +1,6 @@
 input: .
 output: .retype
-url: # Add your website address here
+url: system-design-tldr.netlify.app
 branding:
   title: System Design
   label: TLDR
