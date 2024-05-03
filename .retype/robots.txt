@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://system-design-tldr.netlify.app/sitemap.xml.gz
