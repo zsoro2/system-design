@@ -9,32 +9,32 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Welcome</title>
-    <meta name="title" content="Welcome">
-    <meta name="description" content="test">
+    <title>Indexes</title>
+    <meta name="title" content="Indexes">
+    <meta name="description" content="Index Type">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://system-design-tldr.netlify.app/">
+    <link rel="canonical" href="https://system-design-tldr.netlify.app/databases/indexes/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://system-design-tldr.netlify.app/">
-    <meta property="og:title" content="Welcome">
-    <meta property="og:description" content="test">
+    <meta property="og:url" content="https://system-design-tldr.netlify.app/databases/indexes/">
+    <meta property="og:title" content="Indexes">
+    <meta property="og:description" content="Index Type">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://system-design-tldr.netlify.app/">
-    <meta property="twitter:title" content="Welcome">
-    <meta property="twitter:description" content="test">
+    <meta property="twitter:url" content="https://system-design-tldr.netlify.app/databases/indexes/">
+    <meta property="twitter:title" content="Indexes">
+    <meta property="twitter:description" content="Index Type">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="resources/css/retype.css?v=3.5.0.769727563568" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.769727563568" rel="stylesheet">
 
-    <script data-cfasync="false" src="resources/js/config.js?v=3.5.0.769727563568" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="resources/js/lunr.js?v=3.5.0.769727563568" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.769727563568" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.769727563568" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -49,7 +49,7 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">System Design</span>
                         </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">TLDR</span>
                     </div>
@@ -177,13 +177,225 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="welcome" class="break-words">
+<doc-anchor-target id="indexes" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#welcome">#</doc-anchor-trigger>
-        <span>Welcome</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#indexes">#</doc-anchor-trigger>
+        <span>Indexes</span>
     </h1>
 </doc-anchor-target>
-<p>test</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Index Type</th>
+<th>Best For</th>
+<th>Key Points</th>
+<th>Strengths</th>
+<th>Limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-Tree</td>
+<td>General-purpose indexing</td>
+<td>Balanced tree, keeps data sorted</td>
+<td>Efficient searches, range queries</td>
+<td>Needs space and maintenance as it grows</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>Exact match lookups</td>
+<td>Hash table, maps keys to values</td>
+<td>Extremely fast exact match lookups</td>
+<td>No range queries, needs collision handling</td>
+</tr>
+<tr>
+<td>Full-Text</td>
+<td>Text search</td>
+<td>Inverted index, tracks word occurrences</td>
+<td>Handles complex text searches</td>
+<td>Resource-intensive, needs extra storage</td>
+</tr>
+<tr>
+<td>Clustered</td>
+<td>Organizing rows by index key</td>
+<td>Stores actual table data at index leaf level</td>
+<td>Fast for retrieving ordered rows</td>
+<td>Slower for inserts/updates due to reordering</td>
+</tr>
+<tr>
+<td>Non-Clustered</td>
+<td>Quick access to data</td>
+<td>Separate from table, contains pointers to data</td>
+<td>Efficient for quick lookups</td>
+<td>Can be slower for large datasets compared to clustered</td>
+</tr>
+<tr>
+<td>Spatial</td>
+<td>Geospatial queries</td>
+<td>R-Trees, Quadtrees for spatial data</td>
+<td>Efficient for location-based queries</td>
+<td>Complex to implement, can degrade with irregular data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<doc-anchor-target id="b-tree-indexes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#b-tree-indexes">#</doc-anchor-trigger>
+        <span>B-Tree Indexes</span>
+    </h2>
+</doc-anchor-target>
+<p>General-purpose indexing in databases.</p>
+<ul>
+<li><strong>Key Points:</strong>
+<ul>
+<li><strong>Structure:</strong> Balanced tree; keeps data sorted.</li>
+<li><strong>Performance:</strong> Good for finding specific values and range queries.</li>
+<li><strong>Uses:</strong> Common in MySQL, PostgreSQL, Oracle.</li>
+</ul>
+</li>
+<li><strong>Strengths:</strong>
+<ul>
+<li>Efficient searches, inserts, and deletes.</li>
+<li>Supports range queries.</li>
+</ul>
+</li>
+<li><strong>Limitations:</strong> Requires more space and maintenance as it grows.</li>
+</ul>
+<doc-anchor-target id="hash-indexes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#hash-indexes">#</doc-anchor-trigger>
+        <span>Hash Indexes</span>
+    </h2>
+</doc-anchor-target>
+<p>Fast lookups for exact matches.</p>
+<ul>
+<li><strong>Key Points:</strong>
+<ul>
+<li><strong>Structure:</strong> Hash table; maps keys to values.</li>
+<li><strong>Performance:</strong> Very fast for finding exact matches.</li>
+<li><strong>Uses:</strong> In-memory databases like Redis; some uses in MySQL.</li>
+</ul>
+</li>
+<li><strong>Strengths:</strong>
+<ul>
+<li>Extremely fast exact match lookups.</li>
+</ul>
+</li>
+<li><strong>Limitations:</strong>
+<ul>
+<li>No range queries.</li>
+<li>Needs handling for hash collisions.</li>
+</ul>
+</li>
+</ul>
+<doc-anchor-target id="full-text-indexes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#full-text-indexes">#</doc-anchor-trigger>
+        <span>Full-Text Indexes</span>
+    </h2>
+</doc-anchor-target>
+<p>Searching large text fields.</p>
+<ul>
+<li><strong>Key Points:</strong>
+<ul>
+<li><strong>Structure:</strong> Inverted index; tracks occurrences of each word.</li>
+<li><strong>Performance:</strong> Optimized for text search.</li>
+<li><strong>Uses:</strong> Elasticsearch, MySQL, PostgreSQL for full-text search.</li>
+</ul>
+</li>
+<li><strong>Strengths:</strong>
+<ul>
+<li>Handles complex searches (e.g., relevance, ranking).</li>
+</ul>
+</li>
+<li><strong>Limitations:</strong>
+<ul>
+<li>Can be resource-intensive.</li>
+<li>Requires additional storage space.</li>
+</ul>
+</li>
+</ul>
+<doc-anchor-target id="clustered-indexes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#clustered-indexes">#</doc-anchor-trigger>
+        <span>Clustered Indexes</span>
+    </h2>
+</doc-anchor-target>
+<p>With a clustered index the rows are stored physically on the disk in the same order as the index. Therefore, there can be only one clustered index.</p>
+<ul>
+<li><strong>Key Points:</strong>
+<ul>
+<li><strong>Structure:</strong> Stores actual table data at the leaf level of the index.</li>
+<li><strong>Performance:</strong> Fast for retrieving rows in sorted order.</li>
+<li><strong>Uses:</strong> Each table can have only one clustered index (e.g., primary key in SQL Server).</li>
+</ul>
+</li>
+<li><strong>Strengths:</strong>
+<ul>
+<li>Fast data retrieval for ordered data.</li>
+</ul>
+</li>
+<li><strong>Limitations:</strong>
+<ul>
+<li>Slower for insert and update operations due to reordering.</li>
+</ul>
+</li>
+</ul>
+<doc-anchor-target id="non-clustered-indexes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#non-clustered-indexes">#</doc-anchor-trigger>
+        <span>Non-Clustered Indexes</span>
+    </h2>
+</doc-anchor-target>
+<p>With a non clustered index there is a second list that has pointers to the physical rows. You can have many non clustered indices, although each new index will increase the time it takes to write new records.</p>
+<ul>
+<li><strong>Key Points:</strong>
+<ul>
+<li><strong>Structure:</strong> Separate from the table; contains pointers to the data.</li>
+<li><strong>Performance:</strong> Good for queries that don&#x27;t require sorted data.</li>
+<li><strong>Uses:</strong> Multiple non-clustered indexes can exist per table.</li>
+</ul>
+</li>
+<li><strong>Strengths:</strong>
+<ul>
+<li>Efficient for quick lookups.</li>
+</ul>
+</li>
+<li><strong>Limitations:</strong>
+<ul>
+<li>Can be slower than clustered indexes for large datasets.</li>
+</ul>
+</li>
+</ul>
+<doc-anchor-target id="spatial-indexes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#spatial-indexes">#</doc-anchor-trigger>
+        <span>Spatial Indexes</span>
+    </h2>
+</doc-anchor-target>
+<p>Geospatial queries and multi-dimensional data.</p>
+<ul>
+<li><strong>Key Points:</strong>
+<ul>
+<li><strong>Structure:</strong> R-Trees, Quadtrees, etc.; organizes spatial data.</li>
+<li><strong>Performance:</strong> Efficient for spatial operations.</li>
+<li><strong>Uses:</strong> GIS, spatial databases like PostGIS, MySQL.</li>
+</ul>
+</li>
+<li><strong>Strengths:</strong>
+<ul>
+<li>Efficient for location-based queries.</li>
+</ul>
+</li>
+<li><strong>Limitations:</strong>
+<ul>
+<li>Complex to implement.</li>
+<li>Performance can degrade with irregular data.</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 <!-- Required only on API pages -->
@@ -193,13 +405,20 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../databases/data-structures/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Data structures</span>
+                                            </span>
+                                        </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l rounded-r-lg transition-colors duration-150 relative hover:z-5" href="case-studies/twitter_posts_publish/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../databases/sharding/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Twitter posts publish</span>
+                                                <span class="block mt-1">Sharding</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -243,6 +462,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Welcome", isRoot: true, level: 0, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Indexes", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
