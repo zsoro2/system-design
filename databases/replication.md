@@ -46,6 +46,23 @@ Replication in databases is a technique used to ensure data redundancy and high 
 - Potential for data inconsistency if conflicts are not properly resolved. You can decide to implement some algorithm to automatically resolve conflicts in a consistent manner (e.g., using a unique ID composed of timestamp and randomly generated).
 
 
+| Feature                      | Single-Leader Replication                           | Multi-Leader Replication                          |
+|------------------------------|----------------------------------------------------|--------------------------------------------------|
+| **Write Handling**           | Only one leader handles all write operations       | Multiple leaders can handle write operations     |
+| **Read Handling**            | Reads are spread across followers                  | Reads and writes can be handled by any leader    |
+| **Conflict Resolution**      | Easier, as only the leader handles writes          | More complex, requires resolving conflicts between leaders |
+| **Write Availability**       | Limited to the leader's capacity                   | High, as writes can go to multiple leaders       |
+| **Fault Tolerance**          | Leader is a single point of failure                | Higher, with multiple leaders providing redundancy |
+| **Latency**                  | Higher for nodes far from the leader               | Lower for geographically distributed nodes       |
+| **Complexity**               | Simpler to implement and manage                    | More complex due to conflict resolution needs    |
+| **Consistency**              | Stronger, easier to ensure immediate consistency   | Eventual consistency, harder to guarantee immediate consistency |
+| **Best Use Cases**           | Good for read-heavy workloads                      | Good for high availability and geographically distributed systems |
+| **Replication Lag**          | Typically lower due to single write path           | Can be higher due to asynchronous conflict resolution |
+| **Failure Recovery**         | Promote a follower to be the new leader            | Complex, involves resolving conflicts between leaders |
+| **Examples**                 | Common in databases like MySQL, PostgreSQL         | Used in systems like Apache Cassandra, CouchDB   |
+| **Operational Overhead**     | Lower, due to single-leader management             | Higher, due to managing multiple leaders and conflicts |
+
+
 
 ## Replication Techniques
 
