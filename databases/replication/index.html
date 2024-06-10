@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771368762531">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.771369221169">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -30,11 +30,11 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.771368762531" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.771369221169" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.771368762531" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.771369221169" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.771368762531" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.771369221169" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -298,6 +298,84 @@
 <li>Increased complexity in conflict detection and resolution.</li>
 <li>Potential for data inconsistency if conflicts are not properly resolved. You can decide to implement some algorithm to automatically resolve conflicts in a consistent manner (e.g., using a unique ID composed of timestamp and randomly generated).</li>
 </ul>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Feature</th>
+<th>Single-Leader Replication</th>
+<th>Multi-Leader Replication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Write Handling</strong></td>
+<td>Only one leader handles all write operations</td>
+<td>Multiple leaders can handle write operations</td>
+</tr>
+<tr>
+<td><strong>Read Handling</strong></td>
+<td>Reads are spread across followers</td>
+<td>Reads and writes can be handled by any leader</td>
+</tr>
+<tr>
+<td><strong>Conflict Resolution</strong></td>
+<td>Easier, as only the leader handles writes</td>
+<td>More complex, requires resolving conflicts between leaders</td>
+</tr>
+<tr>
+<td><strong>Write Availability</strong></td>
+<td>Limited to the leader&#x27;s capacity</td>
+<td>High, as writes can go to multiple leaders</td>
+</tr>
+<tr>
+<td><strong>Fault Tolerance</strong></td>
+<td>Leader is a single point of failure</td>
+<td>Higher, with multiple leaders providing redundancy</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Higher for nodes far from the leader</td>
+<td>Lower for geographically distributed nodes</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>Simpler to implement and manage</td>
+<td>More complex due to conflict resolution needs</td>
+</tr>
+<tr>
+<td><strong>Consistency</strong></td>
+<td>Stronger, easier to ensure immediate consistency</td>
+<td>Eventual consistency, harder to guarantee immediate consistency</td>
+</tr>
+<tr>
+<td><strong>Best Use Cases</strong></td>
+<td>Good for read-heavy workloads</td>
+<td>Good for high availability and geographically distributed systems</td>
+</tr>
+<tr>
+<td><strong>Replication Lag</strong></td>
+<td>Typically lower due to single write path</td>
+<td>Can be higher due to asynchronous conflict resolution</td>
+</tr>
+<tr>
+<td><strong>Failure Recovery</strong></td>
+<td>Promote a follower to be the new leader</td>
+<td>Complex, involves resolving conflicts between leaders</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>Common in databases like MySQL, PostgreSQL</td>
+<td>Used in systems like Apache Cassandra, CouchDB</td>
+</tr>
+<tr>
+<td><strong>Operational Overhead</strong></td>
+<td>Lower, due to single-leader management</td>
+<td>Higher, due to managing multiple leaders and conflicts</td>
+</tr>
+</tbody>
+</table>
+</div>
 <doc-anchor-target id="replication-techniques">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#replication-techniques">#</doc-anchor-trigger>
