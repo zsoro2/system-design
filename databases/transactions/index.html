@@ -9,32 +9,33 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Page title here</title>
-    <meta name="title" content="Page title here">
-    <meta name="description" content="This is a paragraph.">
+    <title>Transactions</title>
+    <meta name="title" content="Transactions">
+    <meta name="description" content="A transaction groups several reads and writes into a single unit. It either completes successfully (commit) or fails (rollback).">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://system-design-tldr.netlify.app/sample/">
+    <link rel="canonical" href="https://system-design-tldr.netlify.app/databases/transactions/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://system-design-tldr.netlify.app/sample/">
-    <meta property="og:title" content="Page title here">
-    <meta property="og:description" content="This is a paragraph.">
+    <meta property="og:url" content="https://system-design-tldr.netlify.app/databases/transactions/">
+    <meta property="og:title" content="Transactions">
+    <meta property="og:description" content="A transaction groups several reads and writes into a single unit. It either completes successfully (commit) or fails (rollback).">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://system-design-tldr.netlify.app/sample/">
-    <meta property="twitter:title" content="Page title here">
-    <meta property="twitter:description" content="This is a paragraph.">
+    <meta property="twitter:url" content="https://system-design-tldr.netlify.app/databases/transactions/">
+    <meta property="twitter:title" content="Transactions">
+    <meta property="twitter:description" content="A transaction groups several reads and writes into a single unit. It either completes successfully (commit) or fails (rollback).">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=3.5.0.771958613706" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.771958613706" rel="stylesheet">
 
-    <script data-cfasync="false" src="../resources/js/config.js?v=3.5.0.771958613706" data-turbo-eval="false" defer></script>
-    <script data-cfasync="false" src="../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../resources/js/lunr.js?v=3.5.0.771958613706" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.771958613706" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.771958613706" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.771958613706" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -49,7 +50,7 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">System Design</span>
                         </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">TLDR</span>
                     </div>
@@ -177,57 +178,175 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="page-title-here" class="break-words">
+<doc-anchor-target id="transactions" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#page-title-here">#</doc-anchor-trigger>
-        <span>Page title here</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#transactions">#</doc-anchor-trigger>
+        <span>Transactions</span>
     </h1>
 </doc-anchor-target>
-<p>This is a paragraph.</p>
-<p>Both <a href="../">internal</a> and <a href="https://example.com">external</a> links work.</p>
-<p><figure class="content-center">
-    <img src="logo.png" alt="Your logo">
-    <figcaption class="caption">Your logo</figcaption>
-</figure>
-</p>
-<p>Another paragraph with <strong>bold</strong>, <em>italic</em>, <del>strikethrough</del>, and <code v-pre>code</code> samples.</p>
-<hr>
-<doc-anchor-target id="lists">
+<p>A transaction groups several reads and writes into a single unit. It either completes successfully (commit) or fails (rollback).</p>
+<doc-anchor-target id="acid-properties-of-a-transaction">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#lists">#</doc-anchor-trigger>
-        <span>Lists</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#acid-properties-of-a-transaction">#</doc-anchor-trigger>
+        <span>ACID Properties of a Transaction</span>
     </h2>
 </doc-anchor-target>
+<p>The safety guarantees provided by transactions are often described by the well-known acronym ACID.</p>
 <ul>
-<li>First item</li>
-<li>Second item</li>
-<li>Third item</li>
+<li><strong>Atomicity</strong>: Ensures that all operations within a transaction are completed; if not, the transaction is aborted and any changes are undone.</li>
+<li><strong>Consistency</strong>: Ensures that a transaction takes the database from one valid state to another, maintaining data integrity.</li>
+<li><strong>Isolation</strong>: Ensures that transactions do not interfere with each other, preventing concurrency issues.</li>
+<li><strong>Durability</strong>: Guarantees that once a transaction is committed, it remains so, even in case of a system failure, even if there is a hardware fault or the database crashes. Involves a write-ahead log.</li>
 </ul>
+<doc-anchor-target id="transaction-isolation-levels-mysql--postgresql">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#transaction-isolation-levels-mysql--postgresql">#</doc-anchor-trigger>
+        <span>Transaction Isolation Levels (MySQL + PostgreSQL)</span>
+    </h2>
+</doc-anchor-target>
 <ol>
-<li>First item</li>
-<li>Second item</li>
-<li>Third item</li>
+<li><p><strong>READ UNCOMMITTED (weakest)</strong></p>
+<ul>
+<li><strong>Explain</strong>: With this isolation level, transactions can read UNCOMMITTED data from other transactions, leading to dirty reads.</li>
+<li><strong>Example</strong>:
+<ol>
+<li>T1 and T2 start.</li>
+<li>T1 updates a specific record with a new value.</li>
+<li>T2 selects this record and gets the new value (this is a dirty read because T1 transaction is not committed yet, but T2 sees the new value).</li>
 </ol>
-<blockquote>
-<p>&quot;Cool! This is a quotation.&quot;</p>
-</blockquote>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-<p>Need to draw attention to something? Use an alert.</p>
-        </div>
+</li>
+</ul>
+</li>
+<li><p><strong>READ COMMITTED</strong></p>
+<ul>
+<li><strong>Explain</strong>: The transaction can only read the COMMITTED data, preventing dirty reads.</li>
+<li><strong>Example</strong>:
+<ol>
+<li>T1 and T2 start.</li>
+<li>T1 updates a specific record with a new value.</li>
+<li>If T2 selects the same record, it will get the original data, not what T1 updated.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>REPEATABLE READ (default level)</strong></p>
+<ul>
+<li><strong>Explain</strong>: Transactions see consistent data during their execution, blocking non-repeatable reads but not phantom reads.</li>
+</ul>
+</li>
+<li><p><strong>SERIALIZABLE (strongest)</strong></p>
+<ul>
+<li><strong>Explain</strong>: This level locks the rows, preventing other transactions from modifying them until the transaction is committed.</li>
+<li><strong>Example</strong>: T1 will timeout or succeed as soon as T2 is committed.</li>
+</ul>
+</li>
+</ol>
+<doc-anchor-target id="concurrency-issues-race-conditions">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#concurrency-issues-race-conditions">#</doc-anchor-trigger>
+        <span>Concurrency Issues (Race Conditions)</span>
+    </h2>
+</doc-anchor-target>
+<p>Come into play when one transaction reads data that is concurrently modified by another transaction, or when two transactions try to simultaneously modify the same data.</p>
+<ul>
+<li><strong>Dirty Reads</strong>: A transaction reads uncommitted data from another transaction.Imagine a transaction has written some data to the database, but the transaction has not yet committed or aborted. Can another transaction see that uncommitted data? If yes, that is called a dirty read. One client reads another client’s writes before they have been committed.</li>
+<li><strong>Dirty Writes</strong>: What happens if the earlier write is part of a transaction that has not yet committed, so the later write OVERWRITES an uncommitted value? This is called a dirty write.</li>
+<li><strong>Read Skew (Non-repeatable Reads)</strong>: A transaction reads committed data multiple times but sees different values because another transaction has committed changes in between.</li>
+<li><strong>Lost Updates</strong>: Two clients concurrently perform a read-modify-write cycle. One overwrites the other’s write without incorporating its changes, so data is lost.</li>
+<li><strong>Write Skew</strong>: A transaction reads a value, makes a decision based on that value, but the premise of the decision is no longer true by the time the write is made.</li>
+<li><strong>Phantom Reads</strong>: A transaction reads a set of rows that satisfy a condition, and another transaction inserts, updates, or deletes rows that would affect the initial transaction’s result set if the same query were re-executed.</li>
+<li><strong>Two-phase locking</strong>: Writers don’t just block other writers; they also block readers and vice versa.</li>
+</ul>
+<doc-anchor-target id="solutions-for-common-problems">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#solutions-for-common-problems">#</doc-anchor-trigger>
+        <span>Solutions for Common Problems</span>
+    </h2>
+</doc-anchor-target>
+<ol>
+<li><p><strong>Avoid Read-Modify-Write Cycle</strong></p>
+<ul>
+<li>Focus on &#x27;balance = balance - 100&#x27; section. Instead we select and then update, based on the selection value, we update with a variable.</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-sql"><code v-pre class="language-sql">UPDATE accounts SET balance = balance - 100 WHERE user_id = 1;</code></pre>
+</doc-codeblock></div>
+</li>
+<li><p><strong>Row Level Locking</strong></p>
+<ul>
+<li>Focus on &#x27;for update&#x27; section.</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-sql"><code v-pre class="language-sql">SELECT balance FROM accounts WHERE user_id = 1 FOR UPDATE;</code></pre>
+</doc-codeblock></div>
+</li>
+<li><p><strong>Turn on SERIALIZABLE Isolation Level</strong></p>
+<ul>
+<li>Note: This can cause some performance issues.</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-sql"><code v-pre class="language-sql">set transaction isolation level read uncommitted;</code></pre>
+</doc-codeblock></div>
+</li>
+<li><p><strong>Optimistic Locking</strong></p>
+<ul>
+<li>Allows multiple transactions to complete without locking the database.</li>
+<li>Steps:
+<ol>
+<li>Add a version column:
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-sql"><code v-pre class="language-sql">ALTER TABLE your_table ADD COLUMN version INT DEFAULT 0;</code></pre>
+</doc-codeblock></div>
+</li>
+<li>Select based on the version column and other conditions:
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-sql"><code v-pre class="language-sql">SELECT id, name, version FROM your_table WHERE id = 1;</code></pre>
+</doc-codeblock></div>
+</li>
+<li>Update the row based on the version:
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-sql"><code v-pre class="language-sql">UPDATE your_table
+SET name = 'new_name', version = version + 1
+WHERE id = 1 AND version = 0;</code></pre>
+</doc-codeblock></div>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<doc-anchor-target id="resources">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#resources">#</doc-anchor-trigger>
+        <span>Resources:</span>
+    </h2>
+</doc-anchor-target>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Production use</span>
     </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>https://www.youtube.com/watch?v=wEsPL50Uiyo</span>
+    </div>
+    <a href="https://www.youtube.com/watch?v=wEsPL50Uiyo" target="_blank" class="absolute block inset-0"></a>
 </div>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Solutions</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>https://www.2ndquadrant.com/en/blog/postgresql-anti-patterns-read-modify-write-cycles/</span>
+    </div>
+    <a href="https://www.2ndquadrant.com/en/blog/postgresql-anti-patterns-read-modify-write-cycles/" target="_blank" class="absolute block inset-0"></a>
+</div>
+</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -237,20 +356,20 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../databases/transactions/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../databases/sharding/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Transactions</span>
+                                                <span class="block mt-1">Sharding and Partitioning</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../welcome/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../sample/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Welcome</span>
+                                                <span class="block mt-1">Page title here</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -294,6 +413,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Page title here", level: 1, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Transactions", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
