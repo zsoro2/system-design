@@ -92,3 +92,5 @@ Come into play when one transaction reads data that is concurrently modified by 
 )
 [!ref target="blank" text="Solutions"](https://www.2ndquadrant.com/en/blog/postgresql-anti-patterns-read-modify-write-cycles/)
 
+[!ref target="blank" text="Isolation levels"](https://retool.com/blog/isolation-levels-and-locking-in-relational-databases)
+
